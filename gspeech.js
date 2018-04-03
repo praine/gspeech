@@ -10,7 +10,7 @@ const upload = multer({
 }); 
 
 const gclient = new speech.SpeechClient({
-  keyFilename: __dirname+'/google-cloud.json'
+  keyFilename: '/usr/share/nginx/google-cloud.json'
 });
 
 const app = express();
@@ -21,11 +21,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/', (req, res) => {
+app.get('/gspeech', (req, res) => {
   res.sendStatus(200);
 });
 
-app.post('/', upload.single('file-to-upload'), (req, res) => {
+app.post('/gspeech', upload.single('file-to-upload'), (req, res) => {
 
   res.setHeader('Content-Type', 'application/json');
   
@@ -62,9 +62,10 @@ app.post('/', upload.single('file-to-upload'), (req, res) => {
   
 });
 
-app.listen(3000);
+var port=3000;
+app.listen(port);
 
-console.log('Listening on 3000')
+console.log('Listening on '+port);
 
 function process(destination,filename,res){
 
